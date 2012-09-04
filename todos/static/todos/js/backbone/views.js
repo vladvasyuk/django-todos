@@ -163,18 +163,44 @@ var TaskInputView = Talker.extend({
 
     className: "control-group",
 
+    inputHistory: null,
+
+    currentString: null,
+
     events: {
         'keypress .task_input': 'send',
+        'keyup': 'history_move',
         'submit': 'do'
     },
 
     initialize: function() {
-        
+        _.bind(this.history_move,this);
+        _.bind(this.send,this);
+
+        this.inputHistory = [];
+        this.currentString = 0;
     },
 
     render: function() {
         this.$el.html(this.options.template);
         return this;
+    },
+
+    history_move: function( e ) {
+        if ( e.which != UP_KEY && e.which != DOWN_KEY ) return;
+        if ( this.inputHistory.length == 0 ) return;
+
+        var cur_index = this.currentString;
+        var prev_index = cur_index - 1;
+        var next_index = cur_index + 1;
+        
+        if ( e.which == UP_KEY && this.inputHistory[prev_index] ) {
+            this.currentString = prev_index;
+            this.$(".task_input").val(this.inputHistory[prev_index]);
+        } else if ( e.which == DOWN_KEY && this.inputHistory[next_index] ) {
+            this.currentString = next_index;
+            this.$(".task_input").val(this.inputHistory[next_index]);
+        }
     },
 
     /**
@@ -190,21 +216,21 @@ var TaskInputView = Talker.extend({
         if ( e.which != ENTER_KEY ) return;
 
         // don't allow send if there is commands in the buffer OR if empty field
-        if ( this.$(".task_input").val() == "" ) {
+        if ( $.trim(this.$(".task_input").val()) == "" ) {
             this.show_disabled();
             return;
         }
 
         this.clear_errors();
 
-        var taskstring = this.$(".task_input").val();
+        var taskstring = $.trim(this.$(".task_input").val());
         var input = this.parseInput(taskstring);
-
         var self = this;
-        
         var task = this.options.task ? this.options.task : new Task(); 
-
         var newTaskFlag = this.options.task ? false : true;
+
+        this.inputHistory.push(taskstring);
+        this.currentString = this.inputHistory.length;
 
         // callback for success event needed to bind tags to existing task
         task.save(input.task,{

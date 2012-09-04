@@ -24,14 +24,14 @@
     var API_TASK = '{% url todos.views.index %}api/v1/task/';
     var API_TAG = '{% url todos.views.index %}api/v1/tag/';
     var ENTER_KEY = 13;
+    var UP_KEY = 38;
+    var DOWN_KEY = 40;
 </script>    
 <script src="{{ STATIC_URL }}todos/js/backbone/models.js"></script>
 <script src="{{ STATIC_URL }}todos/js/backbone/views.js"></script>
 <script src="{{ STATIC_URL }}todos/js/backbone/router.js"></script>
 <script type="application/javascript">
-    var AppState = {
-
-    };
+    var AppState = {};
     AppState.Router = new AppRouter();
     Backbone.history.start();
 </script>    
