@@ -123,7 +123,8 @@ var AppRouter = Backbone.Router.extend({
 
     _rebuild_tag_links: function() {
         $("#tag_list li.tag_item").each(function(i,el) {
-            var tag = $(el).attr('id').split('_')[2];
+            var arr_tag = $(el).attr('id').split('_');
+            var tag = arr_tag.slice(2,arr_tag.length).join('_');
             if (tag == '') {
                 var href = AppState.filter ? '#filter/' + AppState.filter : '#';
             } else {
