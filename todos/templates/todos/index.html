@@ -1,0 +1,89 @@
+{% extends 'todos/base.html' %}
+{% block content %}
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="{% url todos.views.index %}#">Todos django application</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav" id="page_nav">
+                    <li class="active" id="page_link_home"><a href="#">Home</a></li>
+                    <li id="page_link_help"><a href="#page/help">How to use</a></li>
+                </ul>
+                <p class="navbar-text pull-right">
+                    <strong>Logged in:</strong> {{ user }} (<a href="{% url auth_logout %}?next={% url todos.views.index %}">logout</a>)
+                </p>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container" id="page_container">
+    <div id="page_home">
+        <div class="row">
+            <div class="span3 offset4">
+                <ul id="feedback" class="unstyled span3">
+                    <li class="alert alert-info" id="loading_block">Loading, please wait...</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span9">
+        
+                <h3>Task list</h3>
+                <div id="main_input"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span9" id="tasks_container">
+                <table id="task_list" class="table table-bordered">
+                    <colgroup>
+                        <col width="30"></col>
+                        <col></col>
+                    </colgroup>
+                    <tbody></tbody>
+                </table>
+                <div class="clear_completed_container">
+                    <button class="btn clear_completed" id="clear_completed">clear completed</button>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul id="filters_list" class="nav nav-list">
+                        <li class="nav-header">filters</li>
+                        <li id="filter_all" class="filter"><a href="#">All</a></li>
+                        <li id="filter_completed" class="filter"><a href="#">Completed</a></li>
+                        <li id="filter_active" class="filter"><a href="#">Active</a></li>
+                        <li id="filter_overdued" class="filter"><a href="#">Overdued</a></li>
+                    </ul>
+                </div>
+                <div class="well sidebar-nav">
+                    <ul id="tag_list" class="nav nav-list">
+                        <li class="nav-header">tags</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="page_help">
+        <h3>What is it all about?</h3>
+        <p>This is simple todo-list application, which allows you to create and manage your tasks.</p>
+        <h3>How-to</h3>
+        <p>To add one, type query string as follows:</p>
+        <input value="Buy 2.5% milk ^tomorrow #household #unimportant !2" type="text" class="span7" />
+        <p>And press <strong>Enter</strong>.</p>
+        <p>What every element in query string means?</p>
+        <ul class="unstyled">
+            <li><strong>Buy 2.5% milk</strong> — title for task</li>
+            <li><strong>^tomorrow</strong> — deadline. Any date value</li>
+            <li><strong>#household #unimportant</strong> — list of tags for task</li>
+            <li><strong>!2</strong> — priority. Random number from 1 to 100. Allows you to sort your tasks by priority as you wish</li>
+        </ul>
+        <p>It's pretty simple and intuitive, try it yourself.</p>
+        <h3>Interface guide</h3>
+        <p>To edit existing task, double click on it. Enter to save.<br />
+        To remove: click on <i class="icon-remove"></i>-icon at right corner of table row with a task.<br />
+        And to mark it as complete: click <i class="icon-ok"></i> icon.<br />
+        Button <strong>Clear completed</strong> just under the table deletes a tasks, which marked as completed.
+        </p>
+    </div>
+</div> 
+{% endblock %}

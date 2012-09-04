@@ -1,0 +1,70 @@
+<script type="text/html" id="tpl_main_input_view">
+<form method="post" action="#" class="form-inline">
+    {% csrf_token %}
+    <div class="input-append">
+        <input type="text" name="taskstring" class="span8 task_input" placeholder="Create new task" autofocus="autofocus" />
+        <a href="#" class="add-on" id="taskstring_help" data-trigger="hover"><i class="icon-question-sign"></i></a>
+    </div>
+</form>
+</script>
+
+<script type="text/html" id="tpl_input_hint">
+<strong>#</strong> — add tag(s) to task<br />
+<strong>!</strong> — set priority<br />
+<strong>^</strong>­ — set deadline<br />
+Press <strong>Enter</strong> to send the form
+</script>
+
+<script type="text/template" id="tpl_task_list_item">
+    <td class="button_complete">
+    <i class="icon-ok<% if (completed) { %> ok_button_completed<% } else { %> ok_button<% } %>"></i>
+    </td>
+    <td>
+        <div class="view">
+            <span class="<% if (completed) { %>completed_task<% } %>"><%= title %></span>
+            <span class="task_details">
+            <% if (deadline) { %>
+                <span class="alert">deadline: <strong><%= deadline %></strong></span>
+            <% } %>
+            <% if (date_completed) { %>
+                <span class="alert">completed: <strong><%= date_completed %></strong></span>
+            <% } %>
+            <% if (tags) { %>
+                <% _.each(tags,function(tag) { %>
+                    <span class="alert alert-info"><%= tag.value %></span>
+                <% }) %>
+            <% } %>
+            </span>
+            <a href="javascript: void(0)" class="close"><i class="icon-remove"></i></a>
+        </div>
+    </td>
+</script>
+
+<script type="text/template" id="tpl_task_item_input">
+<input type="text" name="taskstring" class="edit task_input" value="<%= taskstring %>" />
+</script>
+
+<script type="text/template" id="tpl_tag_list_item">
+<button class="close"><i class="icon-remove"></i></button>
+<a href='#tag/<%= value %>'><%= value %>
+<% if (notcompleted_tasks > 0) { %><span class="badge badge-warning"><%= notcompleted_tasks %></span><% } %>
+</a>
+</script>
+
+<script type="text/template" id="tpl_tag_list_all">
+    <a href='#'>— All tasks</a>
+</script>
+
+<script type="text/template" id="tpl_task_list_none">
+    <tr id="no_tasks"><td>No such tasks</td></tr>
+</script>
+
+<script type="text/template" id="tpl_error_list">
+    <ul class="feedback_error"></ul>
+</script>
+
+<script type="text/template" id="tpl_error_item">
+    <li>
+    <strong><%= field %>:</strong> <%= error %>
+    </li>
+</script>

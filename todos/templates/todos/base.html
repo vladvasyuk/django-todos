@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Todo</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="{{ STATIC_URL }}todos/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}todos/css/main.css" rel="stylesheet" />
+</head>
+<body id="id_todoapp">
+{% block content %}{% endblock %}
+{% include 'todos/templates.html' %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ STATIC_URL }}todos/jquery.js"><\/script>')</script>
+<script src="{{ STATIC_URL }}todos/js/json2.js"></script>
+<script src="{{ STATIC_URL }}todos/js/date.js"></script>
+<script src="{{ STATIC_URL }}todos/js/underscore-min.js"></script>
+<script src="{{ STATIC_URL }}todos/js/backbone-min.js"></script>
+<script src="{{ STATIC_URL }}todos/js/backbone-tastypie.js"></script>
+<script src="{{ STATIC_URL }}todos/bootstrap/js/bootstrap.min.js"></script>
+<script type="application/javascript">
+    var API_TASK = '{% url todos.views.index %}api/v1/task/';
+    var API_TAG = '{% url todos.views.index %}api/v1/tag/';
+    var ENTER_KEY = 13;
+</script>    
+<script src="{{ STATIC_URL }}todos/js/backbone/models.js"></script>
+<script src="{{ STATIC_URL }}todos/js/backbone/views.js"></script>
+<script src="{{ STATIC_URL }}todos/js/backbone/router.js"></script>
+<script type="application/javascript">
+    var AppState = {
+
+    };
+    AppState.Router = new AppRouter();
+    Backbone.history.start();
+</script>    
+</body>
+</html>
