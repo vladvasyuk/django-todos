@@ -1,6 +1,6 @@
 # Django to-do application
 
-Just simple django to-do app using Django+Tastypie at backend and Backbone.js+jQuery+Twitter Bootstrap at frontend.
+Just simple django to-do app with remember-the-milk-like syntax for task adding. It uses Django+Tastypie at backend and Backbone.js+jQuery+Twitter Bootstrap at frontend.
 
 ## Dependencies
 
