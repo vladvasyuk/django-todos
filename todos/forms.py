@@ -15,7 +15,7 @@ class TaskForm(forms.Form):
 
 class TagForm(forms.Form):
     value = forms.CharField(max_length=20,required=True, validators=[
-            RegexValidator(regex=re.compile(r"^[\w\-_\(\)]+$", re.UNICODE), 
+            RegexValidator(regex=re.compile(r"^[\w\-\(\)]+$", re.UNICODE), 
                 message='Incorrect tag name',
                 code='invalid_regex')
         ])
