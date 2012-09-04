@@ -1,6 +1,7 @@
 from django import forms
 from todos.models import Task, Tag
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
+import re
 
 class TaskForm(forms.Form):
     title = forms.CharField(max_length=255,required=True)
@@ -14,5 +15,7 @@ class TaskForm(forms.Form):
 
 class TagForm(forms.Form):
     value = forms.CharField(max_length=20,required=True, validators=[
-            RegexValidator(regex='^\w+$', message='Incorrect tag name', code='invalid_regex')
+            RegexValidator(regex=re.compile(r"^[\w\-_\(\)]+$", re.UNICODE), 
+                message='Incorrect tag name',
+                code='invalid_regex')
         ])
