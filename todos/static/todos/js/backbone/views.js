@@ -47,10 +47,10 @@ var TaskListView = Backbone.View.extend({
         } else {
         
             this.model.each(function(item) {
-                var itemView = new TaskItemView( { model: item } ); 
-                self.$el.append( itemView.render().el );
-            });
-        
+                var itemView = new TaskItemView( { model: item } );
+                self.$el.append(itemView.render().el);
+            }); 
+            
         }
     },
 
@@ -459,6 +459,7 @@ var TaskItemView = Talker.extend({
         trickyObj.bind('success',function() { 
             self.model.fetch({
                 success: function() {
+                    AppState.taskList.fetch({tag: AppState.tag, filter: AppState.filter});
                     AppState.tagList.fetch();
                 }, 
                 error: function() {
